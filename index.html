@@ -37,28 +37,26 @@ function listCombinations() {
 
 function disallowCombination(button, i, valA, j, valB) {
 	console.log("removing:" + i + "/" + valA + " , " + j + "/" + valB);
-	var reason = window.prompt("The combination:" + catnames[i] + "=" + valA + " and " + catnames[j] + "=" + valB + " is not allowed because ");
-	if (reason) {
-		var excludes = $('#excludes');
-		var line = "";
-		for(var k = 0; k < catnames.length; k++) {
-			if (k == i) {
-				line += " " + valA;
-			}
-			else if (k == j) {
-				line += " " + valB;
-			}
-			else {
-				line += " *";
-			}
-		}
-		console.log("trimming: " + line);
-		line = $.trim(line);
-		console.log("appending: " + line);
-		excludes.val(excludes.val() + line + " | " + reason + "\n");
-		console.log("setting button disallowed: " + button);
-		$(button).addClass("disallowed");
-	}
+	var reason = ""
+    var excludes = $('#excludes');
+    var line = "";
+    for(var k = 0; k < catnames.length; k++) {
+        if (k == i) {
+            line += " " + valA;
+        }
+        else if (k == j) {
+            line += " " + valB;
+        }
+        else {
+            line += " *";
+        }
+    }
+    console.log("trimming: " + line);
+    line = $.trim(line);
+    console.log("appending: " + line);
+    excludes.val(excludes.val() + line + " | " + reason + "\n");
+    console.log("setting button disallowed: " + button);
+    $(button).addClass("disallowed");
 };
 
 function appendSolution(resulttable, values) {
