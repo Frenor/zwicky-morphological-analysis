@@ -67,15 +67,6 @@ function appendSolution(resulttable, values) {
 	html += "</tr>";
 	resulttable.append(html);
 }
-function appendCutNote(resulttable, values, rule, reason) {
-	var html = "<tr>";
-	for(var i = 0; i < catnames.length; i++) {
-		html += "<td class='solutioncut'>" + values[i].join(" ") + "</td>";
-	}
-	html += "</tr>"
-	html += "<tr><td class='solutioncut solutioncutreason' colspan='" + catnames.length + "'>removed because:" + reason + "</td></tr>";
-	resulttable.append(html);
-}
 
 
 function countCombinations(allowedvalues) {
@@ -123,9 +114,6 @@ function has_options(allowedvalues, excludes, resultstable = undefined) {
 			}
 		}
 		if (rule_applies) {
-			if(resultstable) {
-				appendCutNote(resultstable, allowedvalues, rule, reason);
-			}
 			return false;
 		}
 	}
@@ -229,7 +217,7 @@ function recursiveGenerateSolutions(resulttable, allowedvalues, excludes, depth)
 		var k = options_indices[j];
 		newallowedvalues[cat_selected] = [options[k]];
 		console.log(prefix + "  assuming: " + catnames[cat_selected] + "=" + options[k]);
-		if (has_options(newallowedvalues, excludes, resulttable)) {
+		if (has_options(newallowedvalues, excludes)) {
 			recursiveGenerateSolutions(resulttable, newallowedvalues, excludes, depth+1);
 		}
 	}
