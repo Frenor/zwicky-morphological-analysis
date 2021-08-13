@@ -253,7 +253,11 @@ function generateSolutions() {
 	resulttable.append(html);
 	console.log("generating solutions...");
 	recursiveGenerateSolutions(resulttable, catvalues, excludes, 0);
-	$("#nsolutions").html("" + (resulttable.find("tr").find("td:first").not('.solutioncut').length) + " solutions");
+    var solutions = resulttable.find("tr").find("td:first").not('.solutioncut').length;
+    var combinations = countCombinations(catvalues);
+    var perc = ((1-solutions/combinations) * 100).toFixed(2);
+    $("#nsolutions").html("" + solutions + " solutions (" + combinations +
+        " combinations, " + perc + "% reduced)");
 }
 
 function clear_inputs(fields) {
